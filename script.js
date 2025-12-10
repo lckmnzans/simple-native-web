@@ -1,6 +1,7 @@
 (async function() {
     let users = await fetchUsers();
     fillTableUsers(users);
+    setCloseModalListener();
 }())
 
 async function fetchUsers() {
@@ -11,6 +12,12 @@ async function fetchUsers() {
 
 async function fetchUser(id) {
     let httpRequest = await fetch(`https://jsonplaceholder.typicode.com/users/${id}`);
+    let response = await httpRequest.json();
+    return response;
+}
+
+async function fetchTodosByUserId(id) {
+    let httpRequest = await fetch(`https://jsonplaceholder.typicode.com/todos?userId=${id}`);
     let response = await httpRequest.json();
     return response;
 }
@@ -26,7 +33,8 @@ function buildRowUserElement({id, name, username, email, company }) {
     let rowUserElement = document.createElement('tr');
         rowUserElement.setAttribute('data-id', id);
     let actionButton = (content) => {
-        let button = document.createElement('button');
+        let button = document.createElement('a');
+        button.setAttribute('class','button');
         button.textContent = content;
         return button;
     }
@@ -42,7 +50,10 @@ function buildRowUserElement({id, name, username, email, company }) {
         actionButton('Posts'),
         actionButton('To-Do')
     )
-    setContactButtonListener(actions.querySelector('button:nth-child(1)'));
+    setContactButtonListener(actions.querySelector('.button:nth-child(1)'));
+    // actions.querySelector('.button:nth-child(2)').setAttribute('href',`posts.html?id=${id}`);
+    setPostsButtonListener(actions.querySelector('.button:nth-child(2)'));
+    setTodoButtonListener(actions.querySelector('.button:nth-child(3)'));
     let columnActions = buildCellUserElement(actions);
     rowUserElement.append(
         columnActions,
@@ -65,6 +76,78 @@ function setContactButtonListener(buttonElement) {
         let rowUser = buttonElement.closest('tr');
         let id = rowUser?.getAttribute('data-id');
         let user = await fetchUser(id);
-        console.log(user);
+        showContactModal(user);
+    })
+}
+
+function showContactModal(user) {
+    let overlay = document.querySelector('.overlay');
+    overlay.classList.remove('hidden');
+    let modalTitle = overlay.querySelector('.modal .title')
+    modalTitle.textContent = "Contact Detail";
+    let modalContent = overlay.querySelector('.modal .content');
+    let htmlContent = `
+        <table>
+            <tr>
+                <th><span>Address</span></th>
+                <td class="row gap">
+                    <div class="column">
+                        <span>Street</span>
+                        <span>Suite</span>
+                        <span>City</span>
+                        <span>Zip Code</span>
+                    </div>
+                    <div class="column">
+                        <span>${user.address.street}</span>
+                        <span>${user.address.suite}</span>
+                        <span>${user.address.city}</span>
+                        <span>${user.address.zipcode}</span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th><span>Phone</span></th>
+                <td>${user.phone}</td>
+            </tr>
+            <tr>
+                <th><span>Website</span></th>
+                <td>${user.website}</td>
+            </tr>
+        </table>
+    `;
+    modalContent.innerHTML = htmlContent;
+}
+
+function setCloseModalListener() {
+    let overlay = document.querySelector('.overlay');
+    let closeButton = overlay.querySelector('.button');
+    closeButton.addEventListener('click', event => {
+        overlay.classList.add('hidden');
+    })
+}
+
+function setTodoButtonListener(buttonElement) {
+    buttonElement?.addEventListener('click', async event => {
+        let rowUser = buttonElement.closest('tr');
+        let id = rowUser?.getAttribute('data-id');
+        let todos = await fetchTodosByUserId(id);
+        showTodosList(todos);
+    })
+}
+
+function showTodosList(todos) {
+    let list = document.querySelector('.list-todos');
+    let htmlStringTodos = '';
+    for (let todo of todos) {
+        htmlStringTodos = htmlStringTodos + `<li><span class="text">${todo.title}</span><span class="icon green">${todo.completed == true ? '<i class="fa fa-check"></i>' : ''}</span></li>`;
+    }
+    list.innerHTML = htmlStringTodos;
+}
+
+function setPostsButtonListener(buttonElement) {
+    buttonElement?.addEventListener('click', async event => {
+        let rowUser = buttonElement.closest('tr');
+        let id = rowUser?.getAttribute('data-id');
+        window.location.href = `posts.html?id=${id}`;
     })
 }
