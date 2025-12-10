@@ -1,6 +1,6 @@
 (async function() {
     let users = await fetchUsers();
-    fillTableUsers(users);
+    populateTableUsers(users);
     setCloseModalListener();
 }())
 
@@ -22,11 +22,12 @@ async function fetchTodosByUserId(id) {
     return response;
 }
 
-function fillTableUsers(users) {
+function populateTableUsers(users) {
     let tableBodyElement = document.querySelector('.table-users tbody');
     for (let user of users) {
         tableBodyElement.append(buildRowUserElement(user));
     }
+    tableBodyElement.closest('table').classList.remove('hidden');
 }
 
 function buildRowUserElement({id, name, username, email, company }) {

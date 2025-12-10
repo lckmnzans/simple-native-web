@@ -4,7 +4,7 @@
     let posts = await fetchPostsByUserId(id);
     let user = await fetchUser(id);
     setPageTitle(user);
-    setTableContent(posts);
+    populateTablePosts(posts);
     setBackButtonListener();
 }())
 
@@ -25,7 +25,7 @@ function setPageTitle({name}) {
     mainHeaderTitle.textContent = name + "'s Posts";
 }
 
-function setTableContent(posts) {
+function populateTablePosts(posts) {
     let tableBodyElement = document.querySelector('.table-wrapper tbody');
     let stringTableContent = '';
     for (let {body,title} of posts) {
@@ -37,6 +37,7 @@ function setTableContent(posts) {
         `;
     }
     tableBodyElement.innerHTML = stringTableContent;
+    tableBodyElement.closest('table').classList.remove('hidden');
 }
 
 function setBackButtonListener() {
