@@ -17,7 +17,6 @@
 }
 
 .header {
-    margin: 12px;
     color: #7D7ABC;
 }
 
@@ -46,4 +45,23 @@ table td {
 
 table tbody > tr:nth-child(even) {
     background-color: #d3d3d3;
+}
+
+table .actions {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+button {
+    background-color: #6141ff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 4px 12px;
+}
+
+button:hover {
+    background-color: #4d34c9;
 }
