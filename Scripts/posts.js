@@ -26,7 +26,8 @@ function setPageTitle({name}) {
 }
 
 function populateTablePosts(posts) {
-    let tableBodyElement = document.querySelector('.table-wrapper tbody');
+    let tableElement = document.querySelector('table.table-posts');
+    let tableBodyElement = tableElement.querySelector('tbody');
     let stringTableContent = '';
     for (let {body,title} of posts) {
         stringTableContent = stringTableContent + `
@@ -37,7 +38,7 @@ function populateTablePosts(posts) {
         `;
     }
     tableBodyElement.innerHTML = stringTableContent;
-    tableBodyElement.closest('table').classList.remove('hidden');
+    tableElement.classList.remove('hidden');
 }
 
 function setBackButtonListener() {

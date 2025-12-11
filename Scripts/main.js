@@ -23,17 +23,19 @@ async function fetchTodosByUserId(id) {
 }
 
 function populateTableUsers(users) {
-    let tableBodyElement = document.querySelector('.table-users tbody');
+    let tableElement = document.querySelector('table.table-users');
+    let tableBodyElement = tableElement.querySelector('tbody');
     for (let user of users) {
         tableBodyElement.append(buildRowUserElement(user));
     }
-    tableBodyElement.closest('table').classList.remove('hidden');
+    tableElement.classList.remove('hidden');
 }
 
 function buildRowUserElement({id, name, username, email, company }) {
     let rowUserElement = document.createElement('tr');
-        rowUserElement.setAttribute('data-id', id);
-    let actionButton = (content) => {
+    rowUserElement.setAttribute('data-id', id);
+    
+    let actionButton = content => {
         let button = document.createElement('a');
         button.setAttribute('class','button');
         button.textContent = content;
@@ -51,11 +53,11 @@ function buildRowUserElement({id, name, username, email, company }) {
         actionButton('Posts'),
         actionButton('To-Do')
     )
-    setContactButtonListener(actions.querySelector('.button:nth-child(1)'));
-    // actions.querySelector('.button:nth-child(2)').setAttribute('href',`posts.html?id=${id}`);
-    setPostsButtonListener(actions.querySelector('.button:nth-child(2)'));
-    setTodoButtonListener(actions.querySelector('.button:nth-child(3)'));
+    setContactButtonListener(id, actions.querySelector('.button:nth-child(1)'));
+    setPostsButtonListener(id, actions.querySelector('.button:nth-child(2)'));
+    setTodoButtonListener(id, actions.querySelector('.button:nth-child(3)'));
     let columnActions = buildCellUserElement(actions);
+    
     rowUserElement.append(
         columnActions,
         columnName,
@@ -72,10 +74,8 @@ function buildCellUserElement(content) {
     return cellElement;
 }
 
-function setContactButtonListener(buttonElement) {
+function setContactButtonListener(id, buttonElement) {
     buttonElement?.addEventListener('click', async event => {
-        let rowUser = buttonElement.closest('tr');
-        let id = rowUser?.getAttribute('data-id');
         let user = await fetchUser(id);
         showContactModal(user);
     })
@@ -127,10 +127,8 @@ function setCloseModalListener() {
     })
 }
 
-function setTodoButtonListener(buttonElement) {
+function setTodoButtonListener(id, buttonElement) {
     buttonElement?.addEventListener('click', async event => {
-        let rowUser = buttonElement.closest('tr');
-        let id = rowUser?.getAttribute('data-id');
         let todos = await fetchTodosByUserId(id);
         showTodosList(todos);
     })
@@ -140,15 +138,13 @@ function showTodosList(todos) {
     let list = document.querySelector('.list-todos');
     let htmlStringTodos = '';
     for (let todo of todos) {
-        htmlStringTodos = htmlStringTodos + `<li><span class="text">${todo.title}</span><span class="icon green">${todo.completed == true ? '<i class="fa fa-check"></i>' : ''}</span></li>`;
+        htmlStringTodos = htmlStringTodos + `<li><span class="text">${todo.title}</span><span class="icon">${todo.completed == true ? '<i class="fa fa-check"></i>' : ''}</span></li>`;
     }
     list.innerHTML = htmlStringTodos;
 }
 
-function setPostsButtonListener(buttonElement) {
+function setPostsButtonListener(id, buttonElement) {
     buttonElement?.addEventListener('click', async event => {
-        let rowUser = buttonElement.closest('tr');
-        let id = rowUser?.getAttribute('data-id');
         window.location.href = `posts.html?id=${id}`;
     })
 }

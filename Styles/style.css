@@ -5,34 +5,37 @@
     overflow: auto;
 }
 
-.left {
+.container > .left {
     flex: 3;
-    min-width: 900px;
+    min-width: 990px;
     padding: 8px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
-.right {
+.container > .right {
     flex: 1;
+    min-width: 330px;
     background-color: #d3d3d3;
     padding: 8px 18px;
 }
 
 .header {
     color: #7D7ABC;
+    border-bottom: solid 2px #7D7ABC;
 }
 
-.main {
+.container > .right > .header {
+    border: none;
+}
+
+.container > .main {
     width: 100%;
     padding: 8px 18px;
-}
-
-hr {
-    border: solid 2px #7D7ABC;
-    border-radius: 2px;
-}
-
-.table-wrapper {
-    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 table {
@@ -61,21 +64,18 @@ table .actions {
     flex-wrap: wrap;
 }
 
-button {
+.button {
     border: none;
-}
-
-table .button {
     background-color: #6141ff;
     color: white;
     border-radius: 4px;
-    padding: 4px 12px;
+    padding: 6px 12px;
     text-decoration: none;
 }
 
-table .button:hover {
-    background-color: #4d34c9;
+.button:hover {
     cursor: pointer;
+    background-color: #4d34c9;
 }
 
 .overlay {
@@ -156,18 +156,13 @@ table .button:hover {
     border-bottom: solid 2px black;
 }
 
-.main .button {
-    background-color: #6141ff;
-    color: white;
-    border-radius: 4px;
-    padding: 4px 12px;
-    text-decoration: none;
+.list-todos li > .text {
+    overflow: hidden;
+    text-wrap-mode: nowrap;
+    text-overflow: ellipsis;
 }
 
-.icon {
+.list-todos li > .icon {
     font-size: 12px;
-}
-
-.green {
     color: green;
 }
