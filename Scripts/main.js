@@ -81,7 +81,7 @@ function setContactButtonListener(id, buttonElement) {
     })
 }
 
-function showContactModal(user) {
+function showContactModal({ address, phone, website }) {
     const overlay = document.querySelector('.overlay');
     overlay.classList.remove('hidden');
 
@@ -104,10 +104,10 @@ function showContactModal(user) {
                             <span>Zip Code</span>
                         </div>
                         <div class="column">
-                            <span>${user.address.street}</span>
-                            <span>${user.address.suite}</span>
-                            <span>${user.address.city}</span>
-                            <span>${user.address.zipcode}</span>
+                            <span>${address.street}</span>
+                            <span>${address.suite}</span>
+                            <span>${address.city}</span>
+                            <span>${address.zipcode}</span>
                         </div>
                     </div>
                 </div>
@@ -118,7 +118,7 @@ function showContactModal(user) {
                     <span><strong>Phone</strong></span>
                 </div>
                 <div class="column">
-                    <span>${user.phone}</span>
+                    <span>${phone}</span>
                 </div>
             </div>
 
@@ -127,7 +127,7 @@ function showContactModal(user) {
                     <span><strong>Website</strong></span>
                 </div>
                 <div class="column">
-                    <span>${user.website}</span>
+                    <span>${website}</span>
                 </div>
             </div>
         </div>
