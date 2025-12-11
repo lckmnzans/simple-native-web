@@ -151,11 +151,11 @@ function setTodoButtonListener(id, buttonElement) {
 function showTodosList(todos) {
     let list = document.querySelector('.list-todos');
     let htmlStringTodos = '';
-    for (let todo of todos) {
+    for (let {title,completed} of todos) {
         htmlStringTodos = htmlStringTodos + `
             <li>
-                <span class="text">${todo.title}</span>
-                <span class="icon color-green">${todo.completed == true ? '<i class="fa fa-check"></i>' : ''}</span>
+                <span class="text">${title}</span>
+                <span class="icon color-green">${completed == true ? '<i class="fa fa-check"></i>' : ''}</span>
             </li>
         `;
     }
