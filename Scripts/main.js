@@ -90,7 +90,7 @@ function showContactModal({phone, website, address: {street, suite, city, zipcod
     let htmlContent = `
         <div class="column gap">
             <div class="row gap">
-                <div class="column">
+                <div class="column w-1">
                     <span><strong>Address</strong></span>
                 </div>
                 <div class="column gap">
@@ -112,7 +112,7 @@ function showContactModal({phone, website, address: {street, suite, city, zipcod
             </div>
 
             <div class="row gap">
-                <div class="column">
+                <div class="column w-1">
                     <span><strong>Phone</strong></span>
                 </div>
                 <div class="column">
@@ -121,7 +121,7 @@ function showContactModal({phone, website, address: {street, suite, city, zipcod
             </div>
 
             <div class="row gap">
-                <div class="column">
+                <div class="column w-1">
                     <span><strong>Website</strong></span>
                 </div>
                 <div class="column">
