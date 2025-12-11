@@ -46,16 +46,16 @@ function buildRowUserElement({id, name, username, email, company }) {
     let columnUsername = buildCellUserElement(username);
     let columnEmail = buildCellUserElement(email);
     let columnCompany = buildCellUserElement(company.name);
+
     let actions = document.createElement('div');
     actions.setAttribute('class','actions');
-    actions.append(
-        actionButton('Contact'),
-        actionButton('Posts'),
-        actionButton('To-Do')
-    )
-    setContactButtonListener(id, actions.querySelector('.button:nth-child(1)'));
-    setPostsButtonListener(id, actions.querySelector('.button:nth-child(2)'));
-    setTodoButtonListener(id, actions.querySelector('.button:nth-child(3)'));
+    let contactButton = actionButton('Contact');
+    let postsButton = actionButton('Posts');
+    let todoButton = actionButton('To-Do');
+    actions.append(contactButton, postsButton, todoButton)
+    setContactButtonListener(id, contactButton);
+    setPostsButtonListener(id, postsButton);
+    setTodoButtonListener(id, todoButton);
     let columnActions = buildCellUserElement(actions);
     
     rowUserElement.append(
@@ -81,7 +81,7 @@ function setContactButtonListener(id, buttonElement) {
     })
 }
 
-function showContactModal(user) {
+function showContactModal({phone, website, address: {street, suite, city, zipcode}}) {
     let overlay = document.querySelector('.overlay');
     overlay.classList.remove('hidden');
     let modalTitle = overlay.querySelector('.modal .title')
@@ -99,20 +99,20 @@ function showContactModal(user) {
                         <span>Zip Code</span>
                     </div>
                     <div class="column">
-                        <span>${user.address.street}</span>
-                        <span>${user.address.suite}</span>
-                        <span>${user.address.city}</span>
-                        <span>${user.address.zipcode}</span>
+                        <span>${street}</span>
+                        <span>${suite}</span>
+                        <span>${city}</span>
+                        <span>${zipcode}</span>
                     </div>
                 </td>
             </tr>
             <tr>
                 <th><span>Phone</span></th>
-                <td>${user.phone}</td>
+                <td>${phone}</td>
             </tr>
             <tr>
                 <th><span>Website</span></th>
-                <td>${user.website}</td>
+                <td>${website}</td>
             </tr>
         </table>
     `;

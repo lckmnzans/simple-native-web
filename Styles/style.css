@@ -42,15 +42,20 @@ table {
     width: 100%;
 }
 
-table thead {
-    background-color: #6457A6;
-    color: white;
-    font-weight: bold;
+table th {
+    text-align: start;
+    border: solid 1px white;
+    padding: 12px;
 }
 
 table td {
     border: solid 1px white;
     padding: 6px;
+}
+
+table thead {
+    background-color: #6457A6;
+    color: white;
 }
 
 table tbody > tr:nth-child(even) {
@@ -158,7 +163,7 @@ table .actions {
 
 .list-todos li > .text {
     overflow: hidden;
-    text-wrap-mode: nowrap;
+    white-space: nowrap;
     text-overflow: ellipsis;
 }
 
