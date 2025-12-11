@@ -82,49 +82,57 @@ function setContactButtonListener(id, buttonElement) {
 }
 
 function showContactModal(user) {
-    let overlay = document.querySelector('.overlay');
+    const overlay = document.querySelector('.overlay');
     overlay.classList.remove('hidden');
-    let modalTitle = overlay.querySelector('.modal .title')
+
+    const modalTitle = overlay.querySelector('.modal .title')
     modalTitle.textContent = "Contact Detail";
-    let modalContent = overlay.querySelector('.modal .content');
-    let htmlContent = `
-        <table>
-            <tr>
-                <th><span>Address</span></th>
-                <td class="row gap">
-                    <div class="column">
-                        <span>Street</span>
-                        <span>Suite</span>
-                        <span>City</span>
-                        <span>Zip Code</span>
+
+    const modalContent = overlay.querySelector('.modal .content');
+    const htmlContent = `
+        <div class="column gap">
+            <div class="row gap">
+                <div class="column">
+                    <span><strong>Address</strong></span>
+                </div>
+                <div class="column gap">
+                    <div class="row gap">
+                        <div class="column">
+                            <span>Street</span>
+                            <span>Suite</span>
+                            <span>City</span>
+                            <span>Zip Code</span>
+                        </div>
+                        <div class="column">
+                            <span>${user.address.street}</span>
+                            <span>${user.address.suite}</span>
+                            <span>${user.address.city}</span>
+                            <span>${user.address.zipcode}</span>
+                        </div>
                     </div>
-                    <div class="column">
-                        <span>${user.address.street}</span>
-                        <span>${user.address.suite}</span>
-                        <span>${user.address.city}</span>
-                        <span>${user.address.zipcode}</span>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <th><span>Phone</span></th>
-                <td>${user.phone}</td>
-            </tr>
-            <tr>
-                <th><span>Website</span></th>
-                <td>${user.website}</td>
-            </tr>
-        </table>
+                </div>
+            </div>
+
+            <div class="row gap">
+                <div class="column">
+                    <span><strong>Phone</strong></span>
+                </div>
+                <div class="column">
+                    <span>${user.phone}</span>
+                </div>
+            </div>
+
+            <div class="row gap">
+                <div class="column">
+                    <span><strong>Website</strong></span>
+                </div>
+                <div class="column">
+                    <span>${user.website}</span>
+                </div>
+            </div>
+        </div>
     `;
     modalContent.innerHTML = htmlContent;
-}
-
-function setCloseModalListener() {
-    let overlay = document.querySelector('.overlay');
-    let closeButton = overlay.querySelector('.button');
-    closeButton.addEventListener('click', event => {
-        overlay.classList.add('hidden');
-    })
 }
 
 function setTodoButtonListener(id, buttonElement) {
