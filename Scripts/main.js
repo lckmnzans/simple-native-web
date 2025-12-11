@@ -88,33 +88,47 @@ function showContactModal({phone, website, address: {street, suite, city, zipcod
     modalTitle.textContent = "Contact Detail";
     let modalContent = overlay.querySelector('.modal .content');
     let htmlContent = `
-        <table>
-            <tr>
-                <th><span>Address</span></th>
-                <td class="row gap">
-                    <div class="column">
-                        <span>Street</span>
-                        <span>Suite</span>
-                        <span>City</span>
-                        <span>Zip Code</span>
+        <div class="column gap">
+            <div class="row gap">
+                <div class="column">
+                    <span><strong>Address</strong></span>
+                </div>
+                <div class="column gap">
+                    <div class="row gap">
+                        <div class="column">
+                            <span class="color-purple">Street</span>
+                            <span class="color-purple">Suite</span>
+                            <span class="color-purple">City</span>
+                            <span class="color-purple">Zip Code</span>
+                        </div>
+                        <div class="column">
+                            <span>${street}</span>
+                            <span>${suite}</span>
+                            <span>${city}</span>
+                            <span>${zipcode}</span>
+                        </div>
                     </div>
-                    <div class="column">
-                        <span>${street}</span>
-                        <span>${suite}</span>
-                        <span>${city}</span>
-                        <span>${zipcode}</span>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <th><span>Phone</span></th>
-                <td>${phone}</td>
-            </tr>
-            <tr>
-                <th><span>Website</span></th>
-                <td>${website}</td>
-            </tr>
-        </table>
+                </div>
+            </div>
+
+            <div class="row gap">
+                <div class="column">
+                    <span><strong>Phone</strong></span>
+                </div>
+                <div class="column">
+                    <span>${phone}</span>
+                </div>
+            </div>
+
+            <div class="row gap">
+                <div class="column">
+                    <span><strong>Website</strong></span>
+                </div>
+                <div class="column">
+                    <span>${website}</span>
+                </div>
+            </div>
+        </div>
     `;
     modalContent.innerHTML = htmlContent;
 }
@@ -138,7 +152,12 @@ function showTodosList(todos) {
     let list = document.querySelector('.list-todos');
     let htmlStringTodos = '';
     for (let todo of todos) {
-        htmlStringTodos = htmlStringTodos + `<li><span class="text">${todo.title}</span><span class="icon">${todo.completed == true ? '<i class="fa fa-check"></i>' : ''}</span></li>`;
+        htmlStringTodos = htmlStringTodos + `
+            <li>
+                <span class="text">${todo.title}</span>
+                <span class="icon color-green">${todo.completed == true ? '<i class="fa fa-check"></i>' : ''}</span>
+            </li>
+        `;
     }
     list.innerHTML = htmlStringTodos;
 }

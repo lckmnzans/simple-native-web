@@ -147,6 +147,14 @@ table .actions {
     gap: 12px;
 }
 
+.color-purple {
+    color: #6457A6;
+}
+
+.color-green {
+    color: #148f14;
+}
+
 .list-todos {
     list-style: none;
     padding: 0;
@@ -169,5 +177,4 @@ table .actions {
 
 .list-todos li > .icon {
     font-size: 12px;
-    color: green;
 }
